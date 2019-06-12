@@ -8,6 +8,7 @@ public class PaginationHelper<I> {
     private int itemsPerPage;
     private int itemCount;
     private int pageCount;
+    private int lastPageItemCount;
 
     /**
      * 构造函数包含
@@ -22,6 +23,8 @@ public class PaginationHelper<I> {
         this.itemsPerPage = itemsPerPage;
         this.itemCount = collection.size();
         this.pageCount = (int)Math.ceil(this.itemCount*1.0 / itemsPerPage);
+        int tmp = this.itemCount % itemsPerPage;
+        this.lastPageItemCount = tmp == 0 ? itemsPerPage: tmp;
     }
 
     /**
@@ -50,8 +53,7 @@ public class PaginationHelper<I> {
         }
         if(pageIndex == this.pageCount - 1)
         {
-            int tmp = this.itemCount % this.itemsPerPage;
-            return  tmp == 0 ? itemsPerPage: tmp;
+            return this.lastPageItemCount;
         }
         return this.itemsPerPage;
     }
